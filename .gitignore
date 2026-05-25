@@ -1,0 +1,12 @@
+# tmux plugins managed by TPM
+tmux/.config/tmux/plugins/
+
+nvim/.config/nvim/docs/
+
+nvim/.config/nvim/.nvimlog
+
+nvim/.config/nvim/nvim.log
+
+nvim/.config/nvim/AGENTS.md
+
+nvim/.config/nvim/CLAUDE.md
