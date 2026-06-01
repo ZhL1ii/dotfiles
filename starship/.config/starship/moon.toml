@@ -41,8 +41,13 @@ format = '[$user ]($style)'
 disabled = false
 
 [os]
-style = "bg:#2f334d fg:#82aaff"
-disabled = true
+style = "bg:#d5d6db fg:#3760bf"
+format = '[$symbol ]($style)'
+disabled = false
+
+[os.symbols]
+Macos = ""
+Ubuntu = ""
 
 [directory]
 style = "bg:#3b4261 fg:#82aaff"

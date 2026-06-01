@@ -42,7 +42,12 @@ disabled = false
 
 [os]
 style = "bg:#d5d6db fg:#3760bf"
-disabled = true
+format = '[$symbol ]($style)'
+disabled = false
+
+[os.symbols]
+Macos = ""
+Ubuntu = ""
 
 [directory]
 style = "bg:#c4c8da fg:#3760bf"
