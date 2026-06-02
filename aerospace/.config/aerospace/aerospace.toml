@@ -1,0 +1,227 @@
+# aerospace config
+
+config-version = 2
+
+# 启动与重载
+start-at-login = true
+
+# 布局基础设置
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+accordion-padding = 24
+
+# 鼠标跟随当前显示器，外接显示器时更自然
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# JankyBorders
+after-startup-command = [
+  'exec-and-forget borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000'
+  ,'exec-and-forget sketchybar'
+]
+
+# workspace 变化时通知 SketchyBar
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+# 只保留常用 workspace
+persistent-workspaces = ['1', '2', '3', '4', '5', 'Q', 'W', 'E', 'S', 'D']
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.right = 8
+outer.bottom = 8
+
+outer.top = [
+  { monitor."G7u Pro" = 35 },
+  { monitor."Built-in Retina Display" = 6 },
+  20
+]
+
+# =========================
+# 主模式快捷键
+# =========================
+[mode.main.binding]
+
+# 聚焦窗口：Vim 方向键
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# 移动窗口
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# 调整布局
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+alt-f = 'fullscreen'
+alt-space = 'layout floating tiling'
+
+# 工作区切换
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-q = 'workspace Q'
+alt-w = 'workspace W'
+alt-e = 'workspace E'
+alt-s = 'workspace S'
+alt-d = 'workspace D'
+
+# 把当前窗口移动到工作区，并跟过去
+alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+alt-shift-q = ['move-node-to-workspace Q', 'workspace Q']
+alt-shift-w = ['move-node-to-workspace W', 'workspace W']
+alt-shift-e = ['move-node-to-workspace E', 'workspace E']
+alt-shift-s = ['move-node-to-workspace S', 'workspace S']
+alt-shift-d = ['move-node-to-workspace D', 'workspace D']
+
+# 回到上一个 workspace
+alt-tab = 'workspace-back-and-forth'
+
+# 多显示器：把当前 workspace 移到下一个显示器
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# 进入服务模式
+alt-shift-semicolon = 'mode service'
+
+
+# =========================
+# 服务模式
+# alt-shift-; 进入，按对应键执行后返回 main
+# =========================
+[mode.service.binding]
+
+esc = ['reload-config', 'mode main']
+
+# 重载配置
+r = ['reload-config', 'mode main']
+
+# 重置当前 workspace 的容器树
+backspace = ['flatten-workspace-tree', 'mode main']
+
+# 当前窗口 floating/tiling 切换
+f = ['layout floating tiling', 'mode main']
+
+# 关闭除当前窗口外的其它窗口
+x = ['close-all-windows-but-current', 'mode main']
+
+# 把窗口合并到某个方向的容器里
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
+
+
+# =========================
+# 自动分配应用到 workspace
+# =========================
+
+# [[on-window-detected]]
+# if.app-id = 'com.mitchellh.ghostty'
+# run = 'move-node-to-workspace 1'
+
+# =========================
+# Floating 应用
+# =========================
+# AeroSpace 支持 on-window-detected，用 app-id / app-name / title 作为条件，
+# 然后执行 layout floating / move-node-to-workspace 等命令。
+# run 可以是字符串，也可以是命令数组。官方示例也是这么写的。
+# https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
+
+# Finder
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+# 系统设置
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+# 活动监视器
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+# 计算器
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+# App Store
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = 'layout floating'
+
+# Raycast
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = 'layout floating'
+
+# 1Password
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+# 微信
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = 'layout floating'
+
+# QQ
+[[on-window-detected]]
+if.app-id = 'com.tencent.qq'
+run = 'layout floating'
+
+# 音乐
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'layout floating'
+
+# Karabiner
+[[on-window-detected]]
+if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'org.pqrs.Karabiner-EventViewer'
+run = 'layout floating'
+
+# LinearMouse
+[[on-window-detected]]
+if.app-id = 'com.lujjjh.LinearMouse'
+run = 'layout floating'
+
+# Clash-verge-rev
+[[on-window-detected]]
+if.app-id = 'io.github.clash-verge-rev.clash-verge-rev'
+run = 'layout floating'
+
+# Calendar
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'layout floating'
