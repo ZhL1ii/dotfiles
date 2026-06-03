@@ -22,7 +22,6 @@ opt.splitbelow = true
 opt.scrolloff = 12
 opt.sidescrolloff = 30
 opt.mouse = "a"
-opt.clipboard = "unnamedplus"
 
 -- 光标闪烁
 vim.opt.guicursor = {
@@ -44,11 +43,9 @@ vim.g.clipboard = {
 		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 	},
 	paste = {
-		["+"] = function()
-			return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
-		end,
-		["*"] = function()
-			return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
-		end,
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
 	},
 }
+
+vim.opt.clipboard = "unnamedplus"
