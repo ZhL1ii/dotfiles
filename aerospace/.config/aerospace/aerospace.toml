@@ -43,7 +43,7 @@ outer.right = 8
 outer.bottom = 8
 
 outer.top = [
-  { monitor."G7u Pro" = 35 },
+  { monitor."G7u Pro" = 6 },
   { monitor."Built-in Retina Display" = 6 },
   20
 ]
@@ -178,9 +178,9 @@ run = 'layout floating'
 if.app-id = 'com.raycast.macos'
 run = 'layout floating'
 
-# 1Password
+# Passwords
 [[on-window-detected]]
-if.app-id = 'com.1password.1password'
+if.app-id = 'com.apple.Passwords'
 run = 'layout floating'
 
 # 微信

@@ -16,6 +16,31 @@ return {
 			markdown = true,
 			markdown_inline = true,
 		}
+		local has_tree_sitter_cli = vim.fn.executable("tree-sitter") == 1
+		local ensure_installed = {
+			"bash",
+			"c",
+			"cpp",
+			"go",
+			"java",
+			"javascript",
+			"json",
+			"lua",
+			"markdown",
+			"markdown_inline",
+			"python",
+			"query",
+			"typescript",
+			"vim",
+			"vimdoc",
+			"yaml",
+		}
+
+		-- Swift parser 当前需要 tree-sitter CLI 从 grammar 生成。
+		-- 本机未安装 CLI 时跳过自动安装，避免启动 Neovim 时直接报错。
+		if has_tree_sitter_cli then
+			table.insert(ensure_installed, "swift")
+		end
 
 		local function install_safe_get_node_text()
 			local get_node_text = vim.treesitter.get_node_text
@@ -42,24 +67,10 @@ return {
 			-- 这里写需要有语法树支持的语言。
 			-- parser 名称不一定等于 filetype，例如 vimdoc 是帮助文档 parser。
 			-- 新增语言时可以先用 :TSInstallInfo 查看可用名称。
-			ensure_installed = {
-				"bash",
-				"c",
-				"cpp",
-				"go",
-				"java",
-				"javascript",
-				"json",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"query",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"yaml",
-			},
+			ensure_installed = ensure_installed,
+
+			-- 即使 auto_install 开启，也不要在缺少 CLI 时尝试安装 Swift parser。
+			ignore_install = has_tree_sitter_cli and {} or { "swift" },
 
 			-- false 表示安装 parser 时不阻塞 Neovim 启动。
 			sync_install = false,
