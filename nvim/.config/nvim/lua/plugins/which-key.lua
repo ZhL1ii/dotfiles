@@ -19,6 +19,7 @@ return {
 			{ "<leader>r", group = "Run" },
 			{ "<leader>t", group = "Terminal" },
 			{ "<leader>x", group = "Diagnostics" },
+			{ "<leader>y", group = "Yank" },
 			{ "<leader>m", group = "Markdown" },
 		},
 

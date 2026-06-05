@@ -1,7 +1,6 @@
 local M = {}
 
 -- 判断是否是普通文件 buffer
---
 local function is_regular_buffer(bufnr)
 	return vim.api.nvim_buf_is_valid(bufnr) -- 判断buffer编号是否有效
 		and vim.bo[bufnr].buflisted -- buflisted == true的buffer通常才会出现在bufferline里
@@ -18,7 +17,7 @@ local function find_regular_buffer(exclude_buf)
 	end
 end
 
--- 兜底：如果找不到左边 buffer，就随便找一个还能用的普通文件 buffer
+-- 如果找不到左边 buffer，就随便找一个还能用的普通文件 buffer
 local function find_window_showing_buffer(bufnr)
 	for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
 		if vim.api.nvim_win_get_buf(winid) == bufnr then

@@ -34,6 +34,29 @@ local function open_with_default_app(state)
 	end
 end
 
+-- 复制 Neo-tree 当前光标选中节点的路径。
+-- state 由 Neo-tree command 注入；modifier 使用 fnamemodify 的路径格式，如 ":." 或 ":p"。
+local function copy_selected_path(state, modifier, label)
+	-- Neo-tree 的 buffer 没有真实文件路径，必须从树状态里取当前选中的节点。
+	local node = state.tree:get_node()
+	if not node then
+		vim.notify("Neo-tree: no node selected", vim.log.levels.WARN)
+		return
+	end
+
+	-- node.path 是文件系统节点的首选路径；get_id() 作为兜底，兼容少数只暴露 id 的节点。
+	local path = node.path or node:get_id()
+	if not path or path == "" then
+		vim.notify("Neo-tree: selected node has no path", vim.log.levels.WARN)
+		return
+	end
+
+	-- modifier 决定复制相对路径还是绝对路径，最终统一写入系统剪贴板寄存器。
+	local copied_path = vim.fn.fnamemodify(path, modifier)
+	vim.fn.setreg("+", copied_path)
+	vim.notify("Copied " .. label .. ": " .. copied_path)
+end
+
 local function refresh_neotree_git_status()
 	local ok, manager = pcall(require, "neo-tree.sources.manager")
 	if not ok then
@@ -66,6 +89,14 @@ return {
 		opts = {
 			commands = {
 				open_with_default_app = open_with_default_app,
+				copy_absolute_path = function(state)
+					-- ":p" 保留完整路径，适合复制给外部工具或需要脱离当前工作目录的场景。
+					copy_selected_path(state, ":p", "absolute path")
+				end,
+				copy_relative_path = function(state)
+					-- ":." 按 Neovim 当前工作目录压成相对路径，适合复制到项目内文档或终端命令。
+					copy_selected_path(state, ":.", "relative path")
+				end,
 			},
 			filesystem = {
 				filtered_items = {
@@ -84,6 +115,8 @@ return {
 					["<C-o>"] = "open_with_default_app",
 					["l"] = "open",
 					["h"] = "close_node",
+					["<leader>ya"] = "copy_absolute_path",
+					["<leader>yr"] = "copy_relative_path",
 				},
 			},
 		},
