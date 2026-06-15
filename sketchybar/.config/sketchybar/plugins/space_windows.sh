@@ -1,18 +1,25 @@
 #!/bin/bash
 
-if [ "$SENDER" = "space_windows_change" ]; then
-  space="$(echo "$INFO" | jq -r '.space')"
-  apps="$(echo "$INFO" | jq -r '.apps | keys[]')"
-
-  icon_strip=" "
-  if [ "${apps}" != "" ]; then
-    while read -r app
-    do
-      icon_strip+=" $($CONFIG_DIR/plugins/icon_map.sh "$app")"
-    done <<< "${apps}"
-  else
-    icon_strip=" —"
-  fi
-
-  sketchybar --set space.$space label="$icon_strip"
+if [ "$SENDER" = "aerospace_workspace_change" ]; then
+  # Get all visible workspaces
+  visible_workspaces=$(aerospace list-workspaces --format "%{id} %{workspace-is-visible}" | grep "true" | awk '{print $1}')
+  
+  # Update only visible workspaces
+  for workspace in $visible_workspaces; do
+    is_focused=$(aerospace list-workspaces --format "%{id} %{workspace-is-focused}" | grep "^$workspace " | awk '{print $2}')
+    # 只请求 app 名称，避免图标映射依赖 Aerospace 默认表格列。
+    apps=$(aerospace list-windows --workspace "$workspace" --format "%{app-name}")
+    
+    sketchybar --set space.$workspace drawing=on
+    
+    if [ "${apps}" != "" ]; then
+      icon_strip=" "
+      while read -r app; do
+        icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
+      done <<<"${apps}"
+      sketchybar --set space.$workspace label="$icon_strip"
+    else
+      sketchybar --set space.$workspace label=""
+    fi
+  done
 fi

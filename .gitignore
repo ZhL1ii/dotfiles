@@ -6,3 +6,6 @@ nvim/.config/nvim/.nvimlog
 
 nvim/.config/nvim/nvim.log
 
+.DS_Store
+
+AGENTS.md

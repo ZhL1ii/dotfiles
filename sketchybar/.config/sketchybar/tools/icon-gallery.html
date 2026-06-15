@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SketchyBar App Font Gallery</title>
+  <style>
+    @font-face {
+      font-family: "sketchybar-app-font";
+      src:
+        local("sketchybar-app-font"),
+        url("file:///Users/chie/Library/Fonts/sketchybar-app-font.ttf") format("truetype");
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg: #101214;
+      --panel: #171a1d;
+      --border: #2b3035;
+      --text: #f2f4f5;
+      --muted: #9ba3aa;
+      --accent: #7cc7ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      border-bottom: 1px solid var(--border);
+      background: rgba(16, 18, 20, 0.94);
+      backdrop-filter: blur(16px);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 360px);
+      gap: 16px;
+      align-items: end;
+      padding: 20px 0 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0 12px;
+      background: #0d0f11;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+    }
+
+    main {
+      padding: 18px 0 28px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 8px;
+    }
+
+    .icon-card {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 58px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      background: var(--panel);
+    }
+
+    .glyph {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      background: #0d0f11;
+      font-family: "sketchybar-app-font";
+      font-size: 25px;
+      line-height: 1;
+      font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+      font-feature-settings: "liga" 1, "calt" 1;
+      overflow: hidden;
+    }
+
+    code {
+      display: block;
+      overflow: hidden;
+      color: #d9edf9;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .copy {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    @media (max-width: 720px) {
+      .top {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div>
+        <h1>SketchyBar App Font Gallery</h1>
+        <p>点击任意图标名复制。复制后可直接填到 <code style="display:inline">plugins/icon_map_fn.sh</code> 的 <code style="display:inline">icon_result</code>。</p>
+      </div>
+      <input id="search" type="search" placeholder="搜索，例如 chrome / wps / text / pdf">
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="meta">
+      <span id="count"></span>
+      <span>字体：~/Library/Fonts/sketchybar-app-font.ttf</span>
+    </div>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <script src="./icon-gallery-data.js"></script>
+  <script>
+    const icons = window.SKETCHYBAR_APP_FONT_ICONS || [];
+
+    const grid = document.querySelector("#grid");
+    const count = document.querySelector("#count");
+    const search = document.querySelector("#search");
+
+    function render() {
+      const needle = search.value.trim().toLowerCase();
+      const visible = icons.filter((name) => name.toLowerCase().includes(needle));
+      count.textContent = `${visible.length} / ${icons.length} 个图标`;
+      grid.innerHTML = visible.map((name) => `
+        <button class="icon-card" type="button" data-name="${name}" title="复制 ${name}">
+          <span class="glyph">${name}</span>
+          <span>
+            <code>${name}</code>
+            <span class="copy">click to copy</span>
+          </span>
+        </button>
+      `).join("");
+    }
+
+    grid.addEventListener("click", async (event) => {
+      const card = event.target.closest(".icon-card");
+      if (!card) return;
+      await navigator.clipboard.writeText(card.dataset.name);
+      const hint = card.querySelector(".copy");
+      hint.textContent = "copied";
+      setTimeout(() => hint.textContent = "click to copy", 800);
+    });
+
+    search.addEventListener("input", render);
+    render();
+  </script>
+</body>
+</html>
