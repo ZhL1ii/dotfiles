@@ -1,7 +1,68 @@
 local M = {}
 
+local function executable_java(home)
+	if not home or home == "" then
+		return nil
+	end
+
+	-- 候选值来自 JDK home；jdtls 需要的是其中的 bin/java 可执行文件。
+	local java = vim.fs.joinpath(home, "bin", "java")
+	if vim.fn.executable(java) == 1 then
+		return java
+	end
+
+	return nil
+end
+
+local function find_jdtls_java()
+	-- 显式环境变量优先，方便在不同机器上按需覆盖 jdtls 的运行时 JDK。
+	local env_candidates = {
+		vim.env.JDTLS_JAVA_HOME,
+		vim.env.JAVA21_HOME,
+	}
+
+	for _, home in ipairs(env_candidates) do
+		local java = executable_java(home)
+		if java then
+			return java
+		end
+	end
+
+	-- SDKMAN 在 Linux/macOS 都可能使用；这里只匹配 21 开头的 JDK，避免拿到 Java 17 的 current。
+	local sdkman_java_dir = vim.fs.joinpath(vim.env.HOME or "", ".sdkman", "candidates", "java")
+	for _, home in ipairs(vim.fn.glob(vim.fs.joinpath(sdkman_java_dir, "21*"), true, true)) do
+		local java = executable_java(home)
+		if java then
+			return java
+		end
+	end
+
+	-- Homebrew 的 openjdk@21 在 Apple Silicon 和 Intel Mac 上路径不同。
+	local brew_candidates = {
+		"/opt/homebrew/opt/openjdk@21",
+		"/usr/local/opt/openjdk@21",
+	}
+
+	for _, home in ipairs(brew_candidates) do
+		local java = executable_java(home)
+		if java then
+			return java
+		end
+	end
+
+	-- macOS 原生 JDK 安装位置；放在最后，避免覆盖用户更明确的 SDKMAN/Homebrew 选择。
+	for _, home in ipairs(vim.fn.glob("/Library/Java/JavaVirtualMachines/*21*/Contents/Home", true, true)) do
+		local java = executable_java(home)
+		if java then
+			return java
+		end
+	end
+
+	return nil
+end
+
 function M.get()
-	return {
+	local opts = {
 		-- jdtls 通过 root_dir 判断项目根目录。
 		-- Java 项目常见根标志包括 Maven、Gradle、Git。
 		root_markers = {
@@ -79,6 +140,18 @@ function M.get()
 			},
 		},
 	}
+
+	local java = find_jdtls_java()
+	if java then
+		-- 只约束 jdtls 语言服务器的运行时；项目编译版本继续交给 Maven/Gradle/toolchain。
+		opts.cmd = {
+			"jdtls",
+			"--java-executable",
+			java,
+		}
+	end
+
+	return opts
 end
 
 return M
