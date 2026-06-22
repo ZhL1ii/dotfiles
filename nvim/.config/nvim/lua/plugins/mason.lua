@@ -28,6 +28,7 @@ return {
 				"clangd",
 				"gopls",
 				"jdtls",
+				"taplo",
 			},
 		},
 	},
@@ -48,6 +49,7 @@ return {
 				"goimports",
 				"clang-format",
 				"prettier",
+				"taplo",
 
 				-- linter：给 nvim-lint 使用
 				-- "luacheck",

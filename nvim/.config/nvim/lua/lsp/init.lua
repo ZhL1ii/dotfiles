@@ -58,6 +58,7 @@ function M.setup()
 		gopls = "lsp.servers.gopls",
 		jdtls = "lsp.servers.jdtls",
 		sourcekit = "lsp.servers.sourcekit",
+		taplo = "lsp.servers.taplo",
 	}
 
 	for server_name, module_name in pairs(servers) do

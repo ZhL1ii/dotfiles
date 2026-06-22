@@ -30,6 +30,8 @@ return {
 			"markdown_inline",
 			"python",
 			"query",
+			"rust",
+			"toml",
 			"typescript",
 			"vim",
 			"vimdoc",

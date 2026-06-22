@@ -11,11 +11,13 @@ return {
 				go = { "goimports", "gofumpt" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
+				rust = { "rustfmt" },
 				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				json = { "prettier" },
+				toml = { "taplo" },
 				yaml = { "prettier" },
 			},
 
