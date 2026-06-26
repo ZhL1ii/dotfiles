@@ -39,6 +39,13 @@ return {
 
 			signature = {
 				enabled = true,
+				trigger = {
+					enabled = false,
+				},
+				window = {
+					max_width = 80,
+					max_height = 4,
+				},
 			},
 
 			fuzzy = {

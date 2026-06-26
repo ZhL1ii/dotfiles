@@ -9,6 +9,18 @@ esac
 
 workspaces=(1 2 3 Q W E)
 
+workspace_known() {
+  local target="$1"
+  local sid
+
+  for sid in "${workspaces[@]}"; do
+    if [ "$sid" = "$target" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 get_rift_focused_workspace() {
   local jq_bin="${JQ:-}"
   local workspace_json
@@ -56,28 +68,48 @@ get_rift_focused_workspace() {
   fi
 }
 
-# 优先使用窗口管理器事件传入的工作区；Rift 的事件使用 workspace name，对应当前栏里的 1/2/3/Q/W/E。
-focused="${FOCUSED_WORKSPACE:-${RIFT_WORKSPACE_NAME:-}}"
-if [ -z "$focused" ]; then
+get_current_focused_workspace() {
   if [ "$WM_MODE" = "aerospace" ]; then
-    focused="$(aerospace list-workspaces --focused 2>/dev/null)"
+    aerospace list-workspaces --focused 2>/dev/null
   else
-    focused="$(get_rift_focused_workspace)"
+    get_rift_focused_workspace
+  fi
+}
+
+token_file="${TMPDIR:-/tmp}/sketchybar_${WM_MODE}_focused_workspace_event"
+token="$$.$RANDOM.$RANDOM"
+args=()
+
+token_is_latest() {
+  local latest=""
+
+  if ! IFS= read -r latest <"$token_file" 2>/dev/null; then
+    return 1
+  fi
+  [ "$latest" = "$token" ]
+}
+
+# 标记最新事件。旧脚本实例如果晚到，不再覆盖当前颜色。
+printf '%s\n' "$token" >"$token_file"
+
+if [ "$WM_MODE" = "aerospace" ]; then
+  # AeroSpace 多显示器快速切换时，事件传入的 workspace 可能已经过期；
+  # 这里以窗口管理器当前状态为准，避免旧事件把颜色改回去。
+  focused="$(get_current_focused_workspace)"
+else
+  focused="${RIFT_WORKSPACE_NAME:-${FOCUSED_WORKSPACE:-}}"
+  if [ -z "$focused" ]; then
+    focused="$(get_current_focused_workspace)"
   fi
 fi
 
-# 在临时文件里记录上一次聚焦的工作区，让普通切换只更新两个 item。
-state_file="${TMPDIR:-/tmp}/sketchybar_${WM_MODE}_focused_workspace"
-previous=""
-args=()
-
-# 如果存在缓存，就读取上一次事件记录的工作区。
-if [ -f "$state_file" ]; then
-  previous="$(cat "$state_file")"
+# 如果更新过程中又来了新事件，当前实例直接退出，让最新实例负责渲染。
+if ! token_is_latest; then
+  exit 0
 fi
 
-# 仍无法判断焦点时不刷新，避免把工作区 1 错误高亮后再触发额外修正。
-if [ -z "$focused" ]; then
+# 仍无法判断焦点或焦点不在栏上时不刷新，避免错误高亮。
+if [ -z "$focused" ] || ! workspace_known "$focused"; then
   exit 0
 fi
 
@@ -103,23 +135,19 @@ set_unfocused() {
   )
 }
 
-# 快速路径：已知上一个工作区时，只更新旧焦点和新焦点。
-if [ -n "$previous" ] && [ "$previous" != "$focused" ]; then
-  set_unfocused "$previous"
-  set_focused "$focused"
-else
-  # 冷启动或重复事件时全量重建状态，避免残留错误高亮。
-  for sid in "${workspaces[@]}"; do
-    if [ "$sid" = "$focused" ]; then
-      set_focused "$sid"
-    else
-      set_unfocused "$sid"
-    fi
-  done
+# 每次都全量重建焦点颜色。只有 6 个 workspace，一次 SketchyBar 调用比维护
+# previous 状态更稳，尤其是多显示器下的连续 workspace 事件。
+for sid in "${workspaces[@]}"; do
+  if [ "$sid" = "$focused" ]; then
+    set_focused "$sid"
+  else
+    set_unfocused "$sid"
+  fi
+done
+
+if ! token_is_latest; then
+  exit 0
 fi
 
 # 用一次 SketchyBar 调用发送所有变更，减少逐 workspace 调用的进程开销。
 sketchybar "${args[@]}"
-
-# 保存当前焦点，供下一次事件走只更新两个 item 的快速路径。
-printf '%s\n' "$focused" >"$state_file"

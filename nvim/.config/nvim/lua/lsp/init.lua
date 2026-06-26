@@ -11,8 +11,9 @@ local function setup_diagnostics()
 		-- 保留下划线
 		underline = true,
 
-		-- virtual text开启
+		-- 只把错误显示成行内文字，避免 linter 和 LSP 的普通提示挤满代码行。
 		virtual_text = {
+			severity = vim.diagnostic.severity.ERROR,
 			spacing = 4,
 			source = "if_many",
 			prefix = "●",

@@ -145,7 +145,7 @@ add_workspace_item() {
   local display_args=()
 
   if [ "$WM_MODE" = "rift" ]; then
-    click_script="/opt/homebrew/bin/rift-cli execute workspace switch $workspace_index"
+    click_script="$PLUGIN_DIR/rift_workspace_click.sh $workspace_index $sid"
   else
     click_script="aerospace workspace $sid"
   fi
@@ -198,8 +198,12 @@ fi
 
 if [ "$WM_MODE" = "aerospace" ]; then
   handler_prefix="aerospace"
-  workspace_events=(aerospace_workspace_change)
-  icon_events=(aerospace_workspace_change space_windows_change)
+  # AeroSpace calls the focus script directly from exec-on-workspace-change.
+  # Avoid routing through SketchyBar's event dispatcher before setting colors.
+  workspace_events=()
+  # Workspace focus changes should only update focus styling. App icons refresh
+  # when the window collection changes, avoiding redraw races on space.* items.
+  icon_events=(space_windows_change)
 else
   handler_prefix="rift"
   # 兼容早期 Rift 配置里复用的 aerospace_workspace_change，同时支持新的 Rift 专用事件名。
@@ -210,11 +214,13 @@ fi
 
 # 用一个隐藏 item 统一处理工作区焦点变化。
 # 避免每次切换工作区时为每个 workspace 都跑一次脚本。
-sketchybar --add item "${handler_prefix}_workspace_handler" left \
-  --set "${handler_prefix}_workspace_handler" \
-  drawing=off \
-  script="$PLUGIN_DIR/aerospace_workspace_change.sh" \
-  --subscribe "${handler_prefix}_workspace_handler" "${workspace_events[@]}"
+if [ "${#workspace_events[@]}" -gt 0 ]; then
+  sketchybar --add item "${handler_prefix}_workspace_handler" left \
+    --set "${handler_prefix}_workspace_handler" \
+    drawing=off \
+    script="$PLUGIN_DIR/aerospace_workspace_change.sh" \
+    --subscribe "${handler_prefix}_workspace_handler" "${workspace_events[@]}"
+fi
 
 # 工作区变化后异步刷新每个 workspace 的应用图标。
 # 和焦点高亮拆成两个 handler，避免图标枚举拖慢切换反馈。

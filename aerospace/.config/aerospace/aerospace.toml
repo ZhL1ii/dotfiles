@@ -18,15 +18,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # JankyBorders
 after-startup-command = [
-  'exec-and-forget borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000'
-  ,'exec-and-forget sketchybar'
+  'exec-and-forget borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000',
+  'exec-and-forget sketchybar',
 ]
 
 # workspace 变化时通知 SketchyBar
 exec-on-workspace-change = [
   '/bin/bash',
   '-c',
-  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+  'CONFIG_DIR="$HOME/.config/sketchybar" FOCUSED_WORKSPACE="$AEROSPACE_FOCUSED_WORKSPACE" "$HOME/.config/sketchybar/plugins/aerospace_workspace_change.sh"',
 ]
 
 # 只保留常用 workspace
@@ -43,9 +43,9 @@ outer.right = 5
 outer.bottom = 5
 
 outer.top = [
-  { monitor."G7u Pro" = 45 },
-  { monitor."Built-in Retina Display" = 10 },
-  20
+  { monitor."G7u Pro" = 8 },
+  { monitor."Built-in Retina Display" = 5 },
+  20,
 ]
 
 # =========================

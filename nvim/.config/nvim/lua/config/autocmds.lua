@@ -35,6 +35,18 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- quickfix/location-list 窗口里按 q 关闭当前列表窗口。
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = function(event)
+		vim.keymap.set("n", "q", "<cmd>close<cr>", {
+			buffer = event.buf,
+			silent = true,
+			desc = "Close quickfix window",
+		})
+	end,
+})
+
 -- 4空格缩进语言
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "c", "cpp", "objc", "objcpp", "python", "java" },
