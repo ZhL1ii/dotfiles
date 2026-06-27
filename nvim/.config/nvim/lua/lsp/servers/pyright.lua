@@ -52,7 +52,8 @@ local function find_python(root_dir)
 	return venv_python(vim.env.VIRTUAL_ENV) or venv_python(vim.env.CONDA_PREFIX)
 end
 
-local function apply_python_path(config, root_dir)
+local function apply_python_path(config)
+	local root_dir = config.root_dir
 	local python = find_python(root_dir)
 	if not python then
 		return
@@ -66,8 +67,8 @@ end
 
 function M.get()
 	return {
-		on_new_config = function(config, root_dir)
-			apply_python_path(config, root_dir)
+		before_init = function(_, config)
+			apply_python_path(config)
 		end,
 		settings = {
 			python = {
