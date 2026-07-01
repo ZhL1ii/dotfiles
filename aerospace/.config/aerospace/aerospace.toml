@@ -16,17 +16,20 @@ accordion-padding = 24
 # 鼠标跟随当前显示器，外接显示器时更自然
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# JankyBorders
+# JankyBorders and sketchybar
 after-startup-command = [
   'exec-and-forget borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000',
-  'exec-and-forget sketchybar',
+  'exec-and-forget /opt/homebrew/bin/sketchybar',
 ]
 
-# workspace 变化时通知 SketchyBar
+# sketchybar has a built-in detection of already running process,
+# so it won't be run twice on AeroSpace restart
+
+# Notify Sketchybar about workspace change
 exec-on-workspace-change = [
   '/bin/bash',
   '-c',
-  'CONFIG_DIR="$HOME/.config/sketchybar" FOCUSED_WORKSPACE="$AEROSPACE_FOCUSED_WORKSPACE" "$HOME/.config/sketchybar/plugins/aerospace_workspace_change.sh"',
+  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
 
 # 只保留常用 workspace
@@ -43,7 +46,7 @@ outer.right = 5
 outer.bottom = 5
 
 outer.top = [
-  { monitor."G7u Pro" = 8 },
+  { monitor."G7u Pro" = 10 },
   { monitor."Built-in Retina Display" = 5 },
   20,
 ]
