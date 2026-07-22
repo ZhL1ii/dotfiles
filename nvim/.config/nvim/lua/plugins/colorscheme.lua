@@ -69,7 +69,6 @@ return {
 				light = "latte",
 				dark = "mocha",
 			},
-			transparent_background = not vim.g.neovide,
 		},
 	},
 	{
@@ -77,10 +76,7 @@ return {
 		lazy = false,
 		priority = 1000,
 		opts = {
-			transparent = not vim.g.neovide,
 			styles = {
-				sidebars = "transparent",
-				floats = "transparent",
 				terminal_colors = true,
 			},
 		},
@@ -91,7 +87,6 @@ return {
 					light = "latte",
 					dark = "mocha",
 				},
-				transparent_background = not vim.g.neovide,
 			})
 			require("tokyonight").setup(opts)
 			vim.api.nvim_create_user_command("ThemeDay", function()

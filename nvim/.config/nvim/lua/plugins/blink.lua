@@ -15,6 +15,12 @@ return {
 			completion = {
 				documentation = {
 					auto_show = true,
+					auto_show_delay_ms = 500,
+					window = {
+						border = "rounded",
+						winblend = 0,
+						winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,EndOfBuffer:BlinkCmpMenu",
+					},
 				},
 
 				menu = {

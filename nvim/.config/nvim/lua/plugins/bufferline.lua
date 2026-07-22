@@ -5,43 +5,46 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
-	opts = {
-		options = {
-			mode = "buffers",
-			numbers = "ordinal",
-			always_show_bufferline = true,
+	opts = function()
+		return {
+			options = {
+				mode = "buffers",
+				style_preset = require("bufferline").style_preset.minimal,
+				numbers = "ordinal",
+				always_show_bufferline = true,
 
-			show_buffer_icons = true,
-			show_buffer_close_icons = false,
-			show_close_icon = false,
-			show_modified_icon = true,
+				show_buffer_icons = true,
+				show_buffer_close_icons = false,
+				show_close_icon = false,
+				show_modified_icon = true,
 
-			diagnostics = "nvim_lsp",
-			separator_style = { "▕", "▕" },
-			indicator = {
-				style = "none",
-			},
-
-			close_command = buffer.delete,
-			right_mouse_command = buffer.delete,
-
-			offsets = {
-				{
-					filetype = "neo-tree",
-					text = "󰙅 Files",
-					text_align = "center",
-					separator = false,
+				diagnostics = "nvim_lsp",
+				separator_style = { "▕", "▕" },
+				indicator = {
+					style = "none",
 				},
-			},
 
-			max_name_length = 20,
-			max_prefix_length = 15,
-			truncate_names = true,
-			enforce_regular_tabs = true,
-			tab_size = 20,
-			sort_by = "insert_after_current",
-		},
-	},
+				close_command = buffer.delete,
+				right_mouse_command = buffer.delete,
+
+				offsets = {
+					{
+						filetype = "neo-tree",
+						text = "󰙅 Files",
+						text_align = "center",
+						separator = false,
+					},
+				},
+
+				max_name_length = 20,
+				max_prefix_length = 15,
+				truncate_names = true,
+				enforce_regular_tabs = true,
+				tab_size = 20,
+				sort_by = "insert_after_current",
+			},
+		}
+	end,
 
 	keys = {
 		{ "<leader>bh", "<cmd>BufferLineCyclePrev<CR>", desc = "Buffer: Previous", silent = true },
