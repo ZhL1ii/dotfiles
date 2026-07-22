@@ -57,11 +57,34 @@ function M.get()
 			})
 		end
 
+		local lsp_path_display = function(_, path)
+			-- LSP 结果通常是绝对路径。仅保留末尾三级目录，既能区分重名文件，
+			-- 又让候选行的代码片段保持可见。
+			local components = vim.split(vim.fs.normalize(path), "/", { plain = true, trimempty = true })
+			local start = math.max(#components - 2, 1)
+			local display_path = table.concat(vim.list_slice(components, start), "/")
+
+			return start > 1 and "…/" .. display_path or display_path
+		end
+
+		local telescope_lsp_picker = function(picker)
+			return function()
+				-- 单个结果由 Telescope 直接跳转；多个结果使用默认的大型预览窗口。
+				-- 这里不覆写 layout，让它继承 Telescope 的横向布局和右侧代码预览。
+				local opts = {
+					reuse_win = true,
+					path_display = lsp_path_display,
+				}
+
+				require("telescope.builtin")[picker](opts)
+			end
+		end
+
 		-- 跳转与查看
-		map("n", "gd", vim.lsp.buf.definition, "LSP: Go to definition")
+		map("n", "gd", telescope_lsp_picker("lsp_definitions"), "LSP: Go to definition")
 		map("n", "gD", vim.lsp.buf.declaration, "LSP: Go to declaration")
-		map("n", "gr", vim.lsp.buf.references, "LSP: List references")
-		map("n", "gi", vim.lsp.buf.implementation, "LSP: Go to implementation")
+		map("n", "gr", telescope_lsp_picker("lsp_references"), "LSP: List references")
+		map("n", "gi", telescope_lsp_picker("lsp_implementations"), "LSP: Go to implementation")
 		map("n", "K", vim.lsp.buf.hover, "LSP: Hover documentation")
 
 		-- 重构与动作

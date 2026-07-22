@@ -38,6 +38,12 @@ return {
 				selection_caret = "> ",
 				-- 打开面板后先进入 normal 模式，可直接用 j/k 选择结果；按 i/a 再输入搜索词。
 				initial_mode = "normal",
+				mappings = {
+					n = {
+						-- 在 Telescope 的 normal 模式中用 q 关闭选择器，和 quickfix 保持一致。
+						["q"] = require("telescope.actions").close,
+					},
+				},
 				sorting_strategy = "ascending",
 				layout_strategy = "horizontal",
 
