@@ -16,6 +16,7 @@ return {
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
+				swift = { "swiftformat" },
 				json = { "prettier" },
 				toml = { "taplo" },
 				yaml = { "prettier" },
@@ -42,7 +43,7 @@ return {
 			-- 保存时自动格式化
 			format_on_save = function(bufnr)
 				-- 只在可写文件上启用自动化格式化
-				if vim.bo[bufnr].buftype ~= "" then
+				if vim.bo[bufnr].buftype ~= "" or not vim.bo[bufnr].modifiable or vim.bo[bufnr].readonly then
 					return
 				end
 				return {

@@ -22,6 +22,7 @@ return {
 			local auto_linters_by_ft = {}
 			local manual_linters_by_ft = {}
 			local should_lint_by_ft = {}
+			manual_linters_by_ft.swift = { "swiftlint" }
 
 			local function add_linters(target, linters_by_ft)
 				for filetype, names in pairs(linters_by_ft or {}) do
@@ -62,9 +63,18 @@ return {
 				return linter.cmd
 			end
 
+			local function resolve_linter(linter)
+				if type(linter) ~= "function" then
+					return linter
+				end
+
+				local ok, resolved = pcall(linter)
+				return ok and resolved or nil
+			end
+
 			local function available_linters(names)
 				return vim.tbl_filter(function(name)
-					local linter = lint.linters[name]
+					local linter = resolve_linter(lint.linters[name])
 					local cmd = linter and linter.cmd and linter_cmd(linter)
 					return cmd and vim.fn.executable(cmd) == 1
 				end, names)
@@ -103,6 +113,24 @@ return {
 					-- InsertLeave：离开插入模式后检查，反馈较及时。
 					-- BufEnter：切换窗口/文件时刷新诊断。
 					try_lint(auto_linters_by_ft)
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("BufWritePost", {
+				group = lint_augroup,
+				callback = function(args)
+					-- SwiftLint 只检查已保存、可写的 Swift 文件，避免临时或只读 buffer 产生噪音。
+					if vim.bo[args.buf].filetype ~= "swift" or vim.bo[args.buf].buftype ~= "" then
+						return
+					end
+
+					if not vim.bo[args.buf].modifiable or vim.bo[args.buf].readonly then
+						return
+					end
+
+					vim.api.nvim_buf_call(args.buf, function()
+						try_lint({ swift = { "swiftlint" } })
+					end)
 				end,
 			})
 

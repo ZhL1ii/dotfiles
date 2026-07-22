@@ -1,4 +1,5 @@
 local M = {}
+local xcode_project = require("utils.xcode_project")
 
 -- build-server、SwiftPM 和 compile_commands.json 都是普通文件或目录 marker。
 -- 向上查找可以避免把 SourceKit-LSP 附着到过小的子目录。
@@ -23,30 +24,6 @@ local function find_upward(filename, names)
 	end
 end
 
--- Xcode 工程根通常由 .xcodeproj / .xcworkspace 目录表示，不能按普通文件名精确匹配。
-local function find_xcode_root(filename)
-	local path = vim.fs.dirname(filename)
-
-	while path do
-		local entries = vim.fs.dir(path)
-		if entries then
-			-- 遍历目录条目以匹配 Xcode project 或 workspace 目录。
-			for name, entry_type in entries do
-				if entry_type == "directory" and (name:match("%.xcodeproj$") or name:match("%.xcworkspace$")) then
-					return path
-				end
-			end
-		end
-
-		local parent = vim.fs.dirname(path)
-		if not parent or parent == path then
-			return nil
-		end
-
-		path = parent
-	end
-end
-
 -- 没有语言专属 marker 时回退到 Git 根，保证零散 Swift 文件仍能获得 LSP 能力。
 local function find_git_root(filename)
 	local git_dir = vim.fs.find(".git", { path = filename, upward = true })[1]
@@ -55,7 +32,8 @@ end
 
 function M.get()
 	return {
-		cmd = { "sourcekit-lsp" },
+		-- 始终经由 xcrun 解析，跟随 xcode-select 选定的 Xcode 工具链，避免误用 PATH 中的独立版本。
+		cmd = { "xcrun", "sourcekit-lsp" },
 
 		-- SourceKit-LSP 同时支持 Swift 和 C 系语言。这里只显式保留上游默认 filetype，
 		-- 让它在 SwiftPM、Xcode project/workspace 和 build-server 项目里都能自动附着。
@@ -70,8 +48,8 @@ function M.get()
 			-- 再尝试 BSP 目录，兼容 SwiftPM 生成的 build server 项目。
 			local bsp_root = find_upward(filename, { ".bsp" })
 
-			-- Xcode 工程和 workspace 用目录后缀识别，不能只按固定文件名查找。
-			local xcode_root = find_xcode_root(filename)
+			-- Xcode 工程和 workspace 用共享解析器按目录后缀识别。
+			local xcode_root = xcode_project.find_root(filename)
 
 			-- SwiftPM 和 compile_commands.json 是常见的独立项目根。
 			local package_root = find_upward(filename, { "compile_commands.json", "Package.swift" })
@@ -91,11 +69,12 @@ function M.get()
 			return language_ids[filetype] or filetype
 		end,
 
-		-- SourceKit-LSP 支持动态文件监听和 pull diagnostics，这里显式打开对应能力。
+		-- GUI Neovim 从 launchd 继承的 maxfiles 软限制为 256；动态文件监听会触发
+		-- SourceKit-LSP 的 EMFILE，因此禁用其动态注册。pull diagnostics 仍保持启用。
 		capabilities = {
 			workspace = {
 				didChangeWatchedFiles = {
-					dynamicRegistration = true,
+					dynamicRegistration = false,
 				},
 			},
 			textDocument = {

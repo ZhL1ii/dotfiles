@@ -18,6 +18,7 @@ return {
 			{ "<leader>q", group = "Quit" },
 			{ "<leader>r", group = "Run" },
 			{ "<leader>t", group = "Terminal" },
+			{ "<leader>X", group = "Xcode" },
 			{ "<leader>x", group = "Diagnostics" },
 			{ "<leader>y", group = "Yank" },
 			{ "<leader>m", group = "Markdown" },

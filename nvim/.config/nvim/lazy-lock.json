@@ -174,5 +174,9 @@
   "which-key.nvim": {
     "branch": "main",
     "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a"
+  },
+  "xcodebuild.nvim": {
+    "branch": "main",
+    "commit": "633eb71c0b354581837025581b7261dbe5361226"
   }
 }

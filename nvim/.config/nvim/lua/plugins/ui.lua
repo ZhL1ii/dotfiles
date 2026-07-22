@@ -2,6 +2,24 @@ return {
   {
     "folke/trouble.nvim",
     cmd = "Trouble",
+    init = function()
+      local build_augroup = vim.api.nvim_create_augroup("xcodebuild-trouble", { clear = true })
+
+      vim.api.nvim_create_autocmd("User", {
+        group = build_augroup,
+        pattern = "XcodebuildBuildFinished",
+        callback = function(event)
+          -- 构建失败时展示由 xcodebuild.nvim 写入的 quickfix；成功与取消均不改变当前窗口。
+          if event.data.success or event.data.cancelled then
+            return
+          end
+
+          vim.schedule(function()
+            vim.cmd("Trouble quickfix open focus=false")
+          end)
+        end,
+      })
+    end,
     keys = {
       -- 查看整个工作区的 diagnostics，适合快速定位项目里的错误和警告。
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble: Workspace diagnostics" },

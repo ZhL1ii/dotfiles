@@ -3,7 +3,7 @@
 config-version = 2
 
 # 启动与重载
-start-at-login = true
+start-at-login = false
 
 # 布局基础设置
 enable-normalization-flatten-containers = true
@@ -16,10 +16,9 @@ accordion-padding = 24
 # 鼠标跟随当前显示器，外接显示器时更自然
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# JankyBorders and sketchybar
+# JankyBorders 
 after-startup-command = [
   'exec-and-forget borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000',
-  'exec-and-forget /opt/homebrew/bin/sketchybar',
 ]
 
 # sketchybar has a built-in detection of already running process,
@@ -46,7 +45,7 @@ outer.right = 5
 outer.bottom = 5
 
 outer.top = [
-  { monitor."G7u Pro" = 10 },
+  { monitor."G7u Pro" = 40 },
   { monitor."Built-in Retina Display" = 5 },
   20,
 ]
