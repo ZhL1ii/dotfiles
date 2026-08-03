@@ -60,6 +60,8 @@ function M.setup()
 		jdtls = "lsp.servers.jdtls",
 		sourcekit = "lsp.servers.sourcekit",
 		taplo = "lsp.servers.taplo",
+		astro = "lsp.servers.astro",
+		tailwindcss = "lsp.servers.tailwindcss",
 	}
 
 	for server_name, module_name in pairs(servers) do

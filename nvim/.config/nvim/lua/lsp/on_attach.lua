@@ -35,6 +35,7 @@ function M.get()
 			javascriptreact = { "eslint_d", "prettier" },
 			typescript = { "eslint_d", "prettier" },
 			typescriptreact = { "eslint_d", "prettier" },
+			astro = { "eslint_d", "prettier" },
 			python = { "ruff_fix", "ruff_organize_imports", "black" },
 		}
 

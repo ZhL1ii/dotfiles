@@ -16,6 +16,7 @@ return {
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
+				astro = { "prettier" },
 				swift = { "swiftformat" },
 				json = { "prettier" },
 				toml = { "taplo" },

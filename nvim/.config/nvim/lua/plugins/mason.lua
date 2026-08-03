@@ -29,6 +29,8 @@ return {
 				"gopls",
 				"jdtls",
 				"taplo",
+				"astro",
+				"tailwindcss",
 			},
 		},
 	},

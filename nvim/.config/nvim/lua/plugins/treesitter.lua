@@ -10,6 +10,7 @@ return {
 	config = function()
 		local treesitter = require("nvim-treesitter")
 		local ensure_installed = {
+			"astro",
 			"bash",
 			"c",
 			"cpp",
