@@ -118,12 +118,14 @@ return {
 
 				window = {
 					mappings = {
-						["<bs>"] = "noop",
-						["<cr>"] = "open_with_default_app",
 						["l"] = "open",
 						["h"] = "close_node",
 						["ya"] = "copy_absolute_path",
 						["yr"] = "copy_relative_path",
+						["<C-o>"] = "open_with_default_app",
+						["."] = "toggle_hidden",
+						["<CR>"] = "set_root",
+						["<BS>"] = "navigate_up",
 					},
 				},
 			},
