@@ -108,6 +108,8 @@ return {
 				},
 			},
 
+			popup_border_style = "rounded",
+
 			filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,
@@ -126,6 +128,12 @@ return {
 						["."] = "toggle_hidden",
 						["<CR>"] = "set_root",
 						["<BS>"] = "navigate_up",
+						["/"] = {
+							"fuzzy_finder",
+							config = {
+								title = " 󰉓 Search ",
+							},
+						},
 					},
 				},
 			},
