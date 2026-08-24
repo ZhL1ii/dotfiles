@@ -2,27 +2,20 @@ local buffer = require("utils.buffer")
 
 return {
 	"akinsho/bufferline.nvim",
+
+	event = "VeryLazy",
+
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
+
 	opts = function()
 		return {
 			options = {
-				mode = "buffers",
 				style_preset = require("bufferline").style_preset.minimal,
 				numbers = "ordinal",
-				always_show_bufferline = true,
-
-				show_buffer_icons = true,
-				show_buffer_close_icons = false,
-				show_close_icon = false,
-				show_modified_icon = true,
 
 				diagnostics = "nvim_lsp",
-				separator_style = { "▕", "▕" },
-				indicator = {
-					style = "none",
-				},
 
 				close_command = buffer.delete,
 				right_mouse_command = buffer.delete,
@@ -60,6 +53,4 @@ return {
 		{ "<leader>bo", buffer.delete_others, desc = "Buffer: Delete Others", silent = true },
 		{ "<leader>ba", buffer.delete_all, desc = "Buffer: Delete All", silent = true },
 	},
-
-	lazy = false,
 }

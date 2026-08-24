@@ -39,3 +39,10 @@ keymap.set("n", "<C-k>", "<C-w>k", { desc = "切到上边窗口" })
 keymap.set("n", "<C-l>", "<C-w>l", { desc = "切到右边窗口" })
 
 keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "退出终端输入模式" })
+
+-- Theme 切换
+keymap.set("n", "<leader>ut", function()
+	require("ui.theme_picker").open()
+end, {
+	desc = "Select theme",
+})

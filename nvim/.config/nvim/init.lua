@@ -1,4 +1,5 @@
 require("config.lazy")
+require("config.theme").load()
 require("config.keymaps")
 require("config.basic")
 require("config.autocmds")
