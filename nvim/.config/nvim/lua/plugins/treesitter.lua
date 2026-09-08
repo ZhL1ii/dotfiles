@@ -48,6 +48,9 @@ return {
 			cpp = true,
 			markdown = true,
 			python = true,
+			-- Neovim 将 .sh / Bash 文件识别为 sh；内置 GetShIndent 比 Tree-sitter
+			-- 的实验性缩进可靠，尤其是在 if/then、case 等未完成结构中。
+			sh = true,
 			yaml = true,
 		}
 
@@ -82,12 +85,14 @@ return {
 				end
 
 				-- 高亮和折叠是 Neovim 内置 Tree-sitter 功能；没有对应 parser 时静默回退。
-				pcall(vim.treesitter.start, args.buf)
+				-- 只有成功加载 parser 才能使用 Tree-sitter 的 indentexpr。否则该表达式会
+				-- 覆盖 autoindent / 内置 ftplugin 缩进，并把新行错误地放回第 0 列。
+				local parser_started = pcall(vim.treesitter.start, args.buf)
 				vim.wo[0].foldmethod = "expr"
 				vim.wo[0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 				-- 新版 nvim-treesitter 仍提供实验性的 Tree-sitter 缩进。
-				if not indent_disabled_filetypes[filetype] then
+				if parser_started and not indent_disabled_filetypes[filetype] then
 					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				end
 			end,

@@ -21,6 +21,8 @@ return {
 				json = { "prettier" },
 				toml = { "taplo" },
 				yaml = { "prettier" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
 			},
 
 			formatters = {

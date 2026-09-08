@@ -31,6 +31,7 @@ return {
 				"taplo",
 				"astro",
 				"tailwindcss",
+				"bashls",
 			},
 		},
 	},
@@ -52,6 +53,7 @@ return {
 				"clang-format",
 				"prettier",
 				"taplo",
+				"shfmt",
 
 				-- linter：给 nvim-lint 使用
 				-- "luacheck",

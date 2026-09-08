@@ -62,6 +62,7 @@ function M.setup()
 		taplo = "lsp.servers.taplo",
 		astro = "lsp.servers.astro",
 		tailwindcss = "lsp.servers.tailwindcss",
+		bashls = "lsp.servers.bashls",
 	}
 
 	for server_name, module_name in pairs(servers) do
