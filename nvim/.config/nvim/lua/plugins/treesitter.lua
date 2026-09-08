@@ -46,8 +46,12 @@ return {
 		local indent_disabled_filetypes = {
 			c = true,
 			cpp = true,
+			-- Go/Rust 的内置 indent 脚本在编辑未完成语法时更稳定；不要让实验性的
+			-- Tree-sitter indentexpr 覆盖它们。
+			go = true,
 			markdown = true,
 			python = true,
+			rust = true,
 			-- Neovim 将 .sh / Bash 文件识别为 sh；内置 GetShIndent 比 Tree-sitter
 			-- 的实验性缩进可靠，尤其是在 if/then、case 等未完成结构中。
 			sh = true,
