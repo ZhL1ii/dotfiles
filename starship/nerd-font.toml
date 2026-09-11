@@ -111,9 +111,13 @@ symbol = " "
 [hg_branch]
 symbol = " "
 
+[username]
+disabled = true
+
 [hostname]
 ssh_symbol = " "
-
+format = "[$ssh_symbol]($style)"
+ssh_only = false
 [java]
 symbol = " "
 

@@ -38,6 +38,7 @@ link "$DOTFILES/ghostty" "$CONFIG_HOME/ghostty"
 link "$DOTFILES/yazi" "$CONFIG_HOME/yazi"
 link "$DOTFILES/fzf" "$CONFIG_HOME/fzf"
 link "$DOTFILES/yamllint" "$CONFIG_HOME/yamllint"
+link "$DOTFILES/starship" "$CONFIG_HOME/starship"
 
 # macOS only
 
