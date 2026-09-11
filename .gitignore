@@ -1,13 +1,11 @@
-tmux/.config/tmux/plugins/
-
-nvim/.config/nvim/docs/
-
-nvim/.config/nvim/.nvimlog
-
-nvim/.config/nvim/nvim.log
-
 .DS_Store
 
 AGENTS.md
 
 tasks/
+
+nvim.log
+
+.nvimlog
+
+tmux/plugins

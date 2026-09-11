@@ -1,0 +1,15 @@
+theme = light:Catppuccin Latte,dark:TokyoNight Moon
+font-family = Lilex Nerd Font
+font-size = 16
+window-padding-x = 10
+window-padding-y = 10
+shell-integration = zsh
+
+macos-titlebar-style = hidden
+
+cursor-style = block
+cursor-style-blink = true
+
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = false

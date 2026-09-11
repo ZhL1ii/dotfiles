@@ -1,0 +1,267 @@
+#!/usr/bin/env sh
+
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/asmvik/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+#
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
+
+# load scripting addition
+/usr/bin/sudo "$(command -v yabai)" --load-sa
+
+# reload scripting addition
+yabai -m signal \
+    --add event=dock_did_restart \
+    action="/usr/bin/sudo $(command -v yabai) --load-sa"
+
+# start with jankyborder
+# borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000
+
+# Spaces
+yabai -m space 1 --label '1'
+yabai -m space 2 --label '2'
+yabai -m space 3 --label '3'
+yabai -m space 4 --label "Q"
+yabai -m space 5 --label "W"
+yabai -m space 6 --label "E"
+
+# global settings
+yabai -m config                                 \
+    external_bar                 off:40:0       \
+    menubar_opacity              1.0            \
+    mouse_follows_focus          off            \
+    focus_follows_mouse          off            \
+    display_arrangement_order    default        \
+    window_origin_display        default        \
+    window_placement             second_child   \
+    window_insertion_point       focused        \
+    window_zoom_persist          on             \
+    window_shadow                on             \
+    skip_window_focus_animation  off            \
+    window_animation_duration    0.0            \
+    window_animation_easing      ease_out_circ  \
+    window_opacity_duration      0.0            \
+    active_window_opacity        1.0            \
+    normal_window_opacity        0.90           \
+    window_opacity               off            \
+    insert_feedback_color        0xffd75f5f     \
+    split_ratio                  0.50           \
+    split_type                   auto           \
+    auto_balance                 off            \
+    layout                       bsp            \
+    mouse_modifier               alt             \
+    mouse_action1                move           \
+    mouse_action2                resize         \
+    mouse_drop_action            swap           \
+
+GAPS_SCRIPT="$HOME/.config/yabai/set-gaps.sh"
+
+"$HOME/.config/yabai/set-gaps.sh"
+
+# new display
+yabai -m signal --add \
+  event=display_added \
+  action="$GAPS_SCRIPT"
+
+# display disconnected
+yabai -m signal --add \
+  event=display_removed \
+  action="$GAPS_SCRIPT"
+
+# display layout 
+yabai -m signal --add \
+  event=display_moved \
+  action="$GAPS_SCRIPT"
+
+# new spaces
+yabai -m signal --add \
+  event=space_created \
+  action="$GAPS_SCRIPT"
+
+
+
+# floating windows
+
+yabai -m rule --add \
+    label="float-finder" \
+    app="^(Finder|访达)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-system-settings" \
+    app="^(System Settings|系统设置)$" \
+    manage=off\
+    sub-layer=below
+
+yabai -m rule --add \
+    label="float-system-settings" \
+    app="^Tailscale$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-system-settings" \
+    app="^Pomotroid$" \
+    manage=off\
+    sub-layer=above
+
+yabai -m rule --add \
+    label="float-activity-monitor" \
+    app="^(Activity Monitor|活动监视器)$" \
+    manage=off\
+    sub-layer=below
+
+yabai -m rule --add \
+    label="float-calculator" \
+    app="^(Calculator|计算器)$" \
+    manage=off\
+    sub-layer=below
+
+yabai -m rule --add \
+    label="float-app-store" \
+    app="^App Store$" \
+    manage=off\
+    sub-layer=below
+    
+
+
+yabai -m rule --add \
+    label="float-passwords" \
+    app="^(Passwords|密码)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-calendar" \
+    app="^(Calendar|日历)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-mail" \
+    app="^(Mail|邮件)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-apple-music" \
+    app="^(Music|音乐)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-photos" \
+    app="^(Photos|照片)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-books" \
+    app="^(Books|图书)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-preview" \
+    app="^(Preview|预览)$" \
+    manage=off\
+    sub-layer=below
+
+# Raycast
+yabai -m rule --add \
+    label="float-raycast" \
+    app="^Raycast$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-karabiner-elements" \
+    app="^(Karabiner-Elements|Karabiner-Elements Settings)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-karabiner-event-viewer" \
+    app="^(Karabiner-EventViewer|Karabiner EventViewer)$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-linear-mouse" \
+    app="^LinearMouse$" \
+    manage=off\
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-clash-verge" \
+    app="^(Clash Verge|Clash Verge Rev)$" \
+    manage=off \
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-easydict" \
+    app="^(Easydict|EasyDict)$" \
+    manage=off \
+    sub-layer=below
+
+yabai -m rule --add \
+    label="float-wechat" \
+    app="^(WeChat|微信)$" \
+    manage=off \
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-qq" \
+    app="^QQ$" \
+    manage=off \
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-tencent-meeting" \
+    app="^(Tencent Meeting|腾讯会议)$" \
+    manage=off \
+    sub-layer=below
+
+yabai -m rule --add \
+    label="float-spotify" \
+    app="^Spotify$" \
+    manage=off \
+    sub-layer=below
+
+
+yabai -m rule --add \
+    label="float-netease-music" \
+    app="^(NetEaseMusic|NeteaseMusic|网易云音乐)$" \
+    scratchpad=netease \
+    sub-layer=below 
+
+
+# IINA
+yabai -m rule --add \
+    label="float-iina" \
+    app="^IINA$" \
+    manage=off\
+    sub-layer=below 
+
+echo "yabai configuration loaded.."
+

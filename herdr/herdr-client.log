@@ -1,0 +1,94 @@
+2026-07-06T02:19:25.638018Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=65149
+2026-07-06T02:19:25.638065Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-06T02:19:25.868176Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
+2026-07-06T04:31:26.531902Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=65149
+2026-07-06T04:31:30.022226Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=24307
+2026-07-06T04:31:30.022324Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-06T04:31:30.090163Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
+2026-07-06T04:31:31.313617Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=24307
+2026-07-06T08:31:29.620355Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=51159
+2026-07-06T08:31:29.620611Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-06T08:31:29.630058Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
+2026-07-06T09:08:40.317521Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=51159
+2026-07-09T08:51:28.439808Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6260
+2026-07-09T08:51:28.440002Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-09T08:51:28.651545Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
+2026-07-09T14:02:36.963679Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=6260
+2026-07-26T02:40:13.019593Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=12214
+2026-07-26T02:40:13.019812Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-26T02:40:13.229381Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
+2026-07-26T02:40:28.444378Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=12214
+2026-07-26T02:46:10.382626Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=23500
+2026-07-26T02:46:10.382825Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-26T02:46:10.602211Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-07-26T11:59:16.706453Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=39795
+2026-07-26T11:59:16.706748Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-07-26T11:59:16.733395Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-07-26T11:59:20.130281Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=39795
+2026-08-02T06:05:04.898966Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=51646
+2026-08-02T06:05:04.899273Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-02T06:05:05.008856Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-08-04T15:12:04.357989Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=69976
+2026-08-04T15:12:04.358205Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-04T15:12:04.568476Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-08-05T04:59:00.267126Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=69976
+2026-08-05T05:01:52.365449Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=26109
+2026-08-05T05:01:52.365490Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-05T05:01:52.571189Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-08-10T08:11:35.707712Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=39872
+2026-08-10T08:11:35.707891Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-10T08:11:35.956686Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-08-10T08:20:19.099452Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=39872
+2026-08-10T08:24:12.444066Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=49472
+2026-08-10T08:24:12.444258Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-10T08:24:12.669687Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-10T11:03:21.021395Z  WARN herdr::sound: sound playback failed sound=Done err=player exited with exit status: 1: Error: AudioQueueStart failed (-66681)
+2026-08-15T13:30:32.563849Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=51997
+2026-08-15T13:30:32.564301Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-15T13:30:32.583417Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-15T13:30:53.829692Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=51997
+2026-08-18T08:33:31.645925Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=50950
+2026-08-18T08:33:31.646186Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-18T08:33:31.870315Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-20T08:23:46.173091Z  WARN herdr::sound: sound playback failed sound=Done err=player exited with exit status: 1: Error: AudioQueueStart failed (-66681)
+2026-08-22T06:25:36.583481Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=96211
+2026-08-22T06:25:36.583798Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-22T06:25:36.590692Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-22T15:50:55.930479Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=96211
+2026-08-23T04:13:42.255860Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=54114
+2026-08-23T04:13:42.256663Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-23T04:13:42.285994Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-24T01:33:56.965246Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=54114
+2026-08-24T01:44:01.188696Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=7848
+2026-08-24T01:44:01.188884Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-24T01:44:01.406265Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-25T02:17:14.958996Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=7848
+2026-08-25T10:09:27.524807Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6557
+2026-08-25T10:09:27.525342Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-25T10:09:27.526557Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-25T11:12:37.841431Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=6557
+2026-08-28T02:30:46.871745Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=29890
+2026-08-28T02:30:46.871983Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-28T02:30:47.098148Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-28T02:31:05.163236Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=29890
+2026-08-28T07:08:04.081711Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=89390
+2026-08-28T07:08:04.081923Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-08-28T07:08:04.147531Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-28T07:08:07.259404Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=89390
+2026-09-03T08:06:08.677019Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=58703
+2026-09-03T08:06:08.677339Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-09-03T08:06:08.793284Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-09-03T08:39:47.576916Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=71484
+2026-09-03T08:39:47.577548Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-09-03T08:39:47.590102Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-09-03T11:41:52.223591Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=37019
+2026-09-03T11:41:52.223855Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-09-03T11:41:52.464824Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-09-03T13:01:10.793499Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=37019
+2026-09-03T14:25:19.977106Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=15739
+2026-09-03T14:25:19.977347Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-09-03T14:25:20.192190Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-09-07T11:54:08.392296Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=8280
+2026-09-07T11:54:08.392542Z  INFO herdr::client: connecting to server path=/Users/chie/.config/herdr/herdr-client.sock
+2026-09-07T11:54:08.616205Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-09-07T12:03:22.837451Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=8280
