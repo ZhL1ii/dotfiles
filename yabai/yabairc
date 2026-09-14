@@ -15,8 +15,8 @@
 
 # reload scripting addition
 yabai -m signal \
-    --add event=dock_did_restart \
-    action="/usr/bin/sudo $(command -v yabai) --load-sa"
+  --add event=dock_did_restart \
+  action="/usr/bin/sudo $(command -v yabai) --load-sa"
 
 # start with jankyborder
 # borders style=round width=6.0 hidpi=off active_color=0xff007aff inactive_color=0x00000000
@@ -30,238 +30,88 @@ yabai -m space 5 --label "W"
 yabai -m space 6 --label "E"
 
 # global settings
-yabai -m config                                 \
-    external_bar                 off:40:0       \
-    menubar_opacity              1.0            \
-    mouse_follows_focus          off            \
-    focus_follows_mouse          off            \
-    display_arrangement_order    default        \
-    window_origin_display        default        \
-    window_placement             second_child   \
-    window_insertion_point       focused        \
-    window_zoom_persist          on             \
-    window_shadow                on             \
-    skip_window_focus_animation  off            \
-    window_animation_duration    0.0            \
-    window_animation_easing      ease_out_circ  \
-    window_opacity_duration      0.0            \
-    active_window_opacity        1.0            \
-    normal_window_opacity        0.90           \
-    window_opacity               off            \
-    insert_feedback_color        0xffd75f5f     \
-    split_ratio                  0.50           \
-    split_type                   auto           \
-    auto_balance                 off            \
-    layout                       bsp            \
-    mouse_modifier               alt             \
-    mouse_action1                move           \
-    mouse_action2                resize         \
-    mouse_drop_action            swap           \
+yabai -m config \
+  external_bar off:40:0 \
+  menubar_opacity 1.0 \
+  mouse_follows_focus off \
+  focus_follows_mouse off \
+  display_arrangement_order default \
+  window_origin_display default \
+  window_placement second_child \
+  window_insertion_point focused \
+  window_zoom_persist on \
+  window_shadow on \
+  skip_window_focus_animation off \
+  window_animation_duration 0.0 \
+  window_animation_easing ease_out_circ \
+  window_opacity_duration 0.0 \
+  active_window_opacity 1.0 \
+  normal_window_opacity 0.90 \
+  window_opacity off \
+  insert_feedback_color 0xffd75f5f \
+  split_ratio 0.50 \
+  split_type auto \
+  auto_balance off \
+  layout bsp \
+  mouse_modifier alt \
+  mouse_action1 move \
+  mouse_action2 resize \
+  mouse_drop_action swap
 
 GAPS_SCRIPT="$HOME/.config/yabai/set-gaps.sh"
 
 "$HOME/.config/yabai/set-gaps.sh"
 
-# new display
-yabai -m signal --add \
-  event=display_added \
-  action="$GAPS_SCRIPT"
-
-# display disconnected
-yabai -m signal --add \
-  event=display_removed \
-  action="$GAPS_SCRIPT"
-
-# display layout 
-yabai -m signal --add \
-  event=display_moved \
-  action="$GAPS_SCRIPT"
-
-# new spaces
-yabai -m signal --add \
-  event=space_created \
-  action="$GAPS_SCRIPT"
-
-
-
-# floating windows
-
-yabai -m rule --add \
-    label="float-finder" \
-    app="^(Finder|访达)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-system-settings" \
-    app="^(System Settings|系统设置)$" \
-    manage=off\
-    sub-layer=below
-
-yabai -m rule --add \
-    label="float-system-settings" \
-    app="^Tailscale$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-system-settings" \
-    app="^Pomotroid$" \
-    manage=off\
-    sub-layer=above
-
-yabai -m rule --add \
-    label="float-activity-monitor" \
-    app="^(Activity Monitor|活动监视器)$" \
-    manage=off\
-    sub-layer=below
-
-yabai -m rule --add \
-    label="float-calculator" \
-    app="^(Calculator|计算器)$" \
-    manage=off\
-    sub-layer=below
-
-yabai -m rule --add \
-    label="float-app-store" \
-    app="^App Store$" \
-    manage=off\
-    sub-layer=below
-    
-
-
-yabai -m rule --add \
-    label="float-passwords" \
-    app="^(Passwords|密码)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-calendar" \
-    app="^(Calendar|日历)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-mail" \
-    app="^(Mail|邮件)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-apple-music" \
-    app="^(Music|音乐)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-photos" \
-    app="^(Photos|照片)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-books" \
-    app="^(Books|图书)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-preview" \
-    app="^(Preview|预览)$" \
-    manage=off\
-    sub-layer=below
-
-# Raycast
-yabai -m rule --add \
-    label="float-raycast" \
-    app="^Raycast$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-karabiner-elements" \
-    app="^(Karabiner-Elements|Karabiner-Elements Settings)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-karabiner-event-viewer" \
-    app="^(Karabiner-EventViewer|Karabiner EventViewer)$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-linear-mouse" \
-    app="^LinearMouse$" \
-    manage=off\
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-clash-verge" \
-    app="^(Clash Verge|Clash Verge Rev)$" \
+# 用于设置浮动窗口的函数
+float_app() {
+  yabai -m rule --add \
+    label="float-$1" \
+    app="$2" \
     manage=off \
-    sub-layer=below
+    sub-layer="${3:-below}"
+}
 
+# macOS
+float_app "finder" "^(Finder|访达)$"
+float_app "system-settings" "^(System Settings|系统设置)$"
+float_app "activity-monitor" "^(Activity Monitor|活动监视器)$"
+float_app "calculator" "^(Calculator|计算器)$"
+float_app "app-store" "^App Store$"
+float_app "passwords" "^(Passwords|密码)$"
+float_app "calendar" "^(Calendar|日历)$"
+float_app "mail" "^(Mail|邮件)$"
+float_app "apple-music" "^(Music|音乐)$"
+float_app "photos" "^(Photos|照片)$"
+float_app "books" "^(Books|图书)$"
+float_app "preview" "^(Preview|预览)$"
+float_app "reminders" "^(Reminders|提醒事项)$"
+float_app "messages" "^(Messages|信息)$"
+float_app "contacts" "^(Contacts|通讯录)$"
+float_app "dictionary" "^(Dictionary|词典)$"
+float_app "disk-utility" "^(Disk Utility|磁盘工具)$"
 
-yabai -m rule --add \
-    label="float-easydict" \
-    app="^(Easydict|EasyDict)$" \
-    manage=off \
-    sub-layer=below
+# Utilities
+float_app "raycast" "^Raycast$"
+float_app "tailscale" "^Tailscale$"
+float_app "pomotroid" "^Pomotroid$" "above"
+float_app "karabiner-elements" "^(Karabiner-Elements|Karabiner-Elements Settings)$"
+float_app "karabiner-event-viewer" "^(Karabiner-EventViewer|Karabiner EventViewer)$"
+float_app "linear-mouse" "^LinearMouse$"
+float_app "clash-verge" "^(Clash Verge|Clash Verge Rev)$"
+float_app "easydict" "^(Easydict|EasyDict)$"
 
-yabai -m rule --add \
-    label="float-wechat" \
-    app="^(WeChat|微信)$" \
-    manage=off \
-    sub-layer=below
+# Communication
+float_app "wechat" "^(WeChat|微信)$"
+float_app "qq" "^QQ$"
+float_app "tencent-meeting" "^(Tencent Meeting|腾讯会议)$"
 
+# Media
+float_app "spotify" "^Spotify$"
+float_app "iina" "^IINA$"
+float_app "bilibili" "^哔哩哔哩$"
+float_app "steam" "^Steam$"
+float_app "netease" "^(NetEaseMusic|NeteaseMusic|网易云音乐)$"
 
-yabai -m rule --add \
-    label="float-qq" \
-    app="^QQ$" \
-    manage=off \
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-tencent-meeting" \
-    app="^(Tencent Meeting|腾讯会议)$" \
-    manage=off \
-    sub-layer=below
-
-yabai -m rule --add \
-    label="float-spotify" \
-    app="^Spotify$" \
-    manage=off \
-    sub-layer=below
-
-
-yabai -m rule --add \
-    label="float-netease-music" \
-    app="^(NetEaseMusic|NeteaseMusic|网易云音乐)$" \
-    scratchpad=netease \
-    sub-layer=below 
-
-
-# IINA
-yabai -m rule --add \
-    label="float-iina" \
-    app="^IINA$" \
-    manage=off\
-    sub-layer=below 
+yabai -m rule --apply
 
 echo "yabai configuration loaded.."
-

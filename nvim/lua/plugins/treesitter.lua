@@ -8,6 +8,9 @@ return {
 	build = ":TSUpdate",
 
 	config = function()
+		local runtime = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/runtime"
+		vim.opt.rtp:append(runtime)
+		vim.treesitter.language.register("ssh_config", "sshconfig")
 		local treesitter = require("nvim-treesitter")
 		local ensure_installed = {
 			"astro",
