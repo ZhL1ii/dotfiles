@@ -39,6 +39,7 @@ link "$DOTFILES/yazi" "$CONFIG_HOME/yazi"
 link "$DOTFILES/fzf" "$CONFIG_HOME/fzf"
 link "$DOTFILES/yamllint" "$CONFIG_HOME/yamllint"
 link "$DOTFILES/starship" "$CONFIG_HOME/starship"
+link "$DOTFILES/herdr" "$CONFIG_HOME/herdr"
 
 # macOS only
 
