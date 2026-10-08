@@ -9,3 +9,5 @@ nvim.log
 .nvimlog
 
 tmux/plugins
+
+lazy-lock.json
