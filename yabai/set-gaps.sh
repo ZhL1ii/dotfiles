@@ -3,7 +3,7 @@
 # 显示器 UUID
 DSPLAY_SANC_UUID="D1C31F4F-0677-4598-AB9A-1B4427D96F5E"
 DSPLAY_BUILTIN_UUID="37D8832A-2D66-02CA-B9F7-8F30A301B230"
-DISPLAY_ENVISION_UUID="C2B93B97-8788-4580-A628-65D5815ADCB3"
+# DISPLAY_ENVISION_UUID="C2B93B97-8788-4580-A628-65D5815ADCB3"
 
 # 获取显示器 index
 DISPLAY_SANC_IDX=$(
@@ -14,9 +14,9 @@ DISPLAY_BUILTIN_IDX=$(
   yabai -m query --displays | jq --arg uuid $DSPLAY_BUILTIN_UUID '.[] | select(.uuid == $uuid) | .index'
 )
 
-DISPLAY_ENVISION_IDX=$(
-  yabai -m query --displays | jq --arg uuid $DISPLAY_ENVISION_UUID '.[] | select(.uuid == $uuid) | .index'
-)
+# DISPLAY_ENVISION_IDX=$(
+#   yabai -m query --displays | jq --arg uuid $DISPLAY_ENVISION_UUID '.[] | select(.uuid == $uuid) | .index'
+# )
 
 set_gaps() {
   local display="$1"
@@ -39,8 +39,8 @@ set_gaps() {
 
 }
 
+# set_gaps "$DISPLAY_ENVISION_IDX" 35 5 5 5 5
+
 set_gaps "$DISPLAY_SANC_IDX" 35 5 5 5 5
 
 set_gaps "$DISPLAY_BUILTIN_IDX" 3 5 5 5 5
-
-set_gaps "$DISPLAY_ENVISION_IDX" 35 5 5 5 5
