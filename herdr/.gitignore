@@ -1,4 +1,11 @@
 *.log
-*.sock
-session.json
-release-notes.json
+*.log.*
+
+*.sock*
+
+/session.json
+/session-snapshots/
+
+/.plugins.lock
+
+/release-notes.json

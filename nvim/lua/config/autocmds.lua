@@ -21,3 +21,15 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = false
   end,
 })
+
+local function set_git_highlights()
+  vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", {
+    link = "Added",
+  })
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = set_git_highlights,
+})
+
+set_git_highlights()
